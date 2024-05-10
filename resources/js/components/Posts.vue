@@ -10,59 +10,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th>1</th>
-                    <td>Mark</td>
-                    <td>
-                        Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry. Lorem Ipsum has been the
-                        industry's standard dummy text ever since the 1500s,
-                        when an unknown printer took a galley of type and
-                        scrambled it to make a type specimen book. It has
-                        survived not only five centuries, but also the leap into
-                        electronic typesetting, remaining essentially unchanged.
-                        It was popularised in the 1960s with the release of
-                        Letraset sheets containing Lorem Ipsum passages, and
-                        more recently with desktop publishing software like
-                        Aldus PageMaker including versions of Lorem Ipsum.
-                    </td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th>2</th>
-                    <td>Jacob</td>
-                    <td>
-                        Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry. Lorem Ipsum has been the
-                        industry's standard dummy text ever since the 1500s,
-                        when an unknown printer took a galley of type and
-                        scrambled it to make a type specimen book. It has
-                        survived not only five centuries, but also the leap into
-                        electronic typesetting, remaining essentially unchanged.
-                        It was popularised in the 1960s with the release of
-                        Letraset sheets containing Lorem Ipsum passages, and
-                        more recently with desktop publishing software like
-                        Aldus PageMaker including versions of Lorem Ipsum.
-                    </td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th>3</th>
-                    <td>Jacob</td>
-                    <td>
-                        Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry. Lorem Ipsum has been the
-                        industry's standard dummy text ever since the 1500s,
-                        when an unknown printer took a galley of type and
-                        scrambled it to make a type specimen book. It has
-                        survived not only five centuries, but also the leap into
-                        electronic typesetting, remaining essentially unchanged.
-                        It was popularised in the 1960s with the release of
-                        Letraset sheets containing Lorem Ipsum passages, and
-                        more recently with desktop publishing software like
-                        Aldus PageMaker including versions of Lorem Ipsum.
-                    </td>
-                    <td>@fat</td>
+                <tr v-for="post in posts" :key="post.id">
+                    <td>{{ post.id }}</td>
+                    <td>{{ post.title }}</td>
+                    <td>{{ post.content }}</td>
+                    <td>{{ post.created_at }}</td>
+
                 </tr>
             </tbody>
         </table>
@@ -70,7 +23,31 @@
 </template>
 
 <script>
+import { onMounted } from 'vue';
+import usePosts from '../composables/posts'
+
 export default {
-    name: "HomePage",
+    setup(){
+        const { posts, getPosts } = usePosts()
+        onMounted(getPosts)
+
+        return {posts}
+    },
+    name: "Posts",
+    // data() {
+    //     return{
+    //         posts:[]
+    //     }
+    // },
+    // mounted() {
+    //     this.fetchPosts()
+    // },
+    // methods: {
+    //     fetchPosts(){
+    //         axios.get('/api/posts')
+    //         .then(response => this.posts = response.data)
+    //         .catch(error => console.log(error))
+    //     }
+    // }
 };
 </script>
